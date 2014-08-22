@@ -3,13 +3,12 @@
 Ensure that the provided stream is flowing data, even if the stream hasn't been
 piped to another stream.
 
-``javascript
+```javascript
 var exhaustively = require('stream-exhaust');
 
 exhaustively(fs.createReadStream(__filename))
   .on('close', () => { console.log('all done, despite being streams{1+N}!') });
-
-``
+```
 
 ## Prior Art
 
