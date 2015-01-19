@@ -185,4 +185,25 @@ test('should not modify .pipe', function(assert) {
 
   assert.equal(stream.pipe, pipe);
   assert.end();
-})
+});
+
+test('does not error on no resume but readable set to true', function(assert) {
+  var rs = new Stream();
+  rs.readable = true;
+
+  var ended = false;
+  var i;
+
+  rs.on("end", function() {
+    assert.ok(ended, 'ended is true');
+    assert.end();
+  });
+
+  exhaust(rs);
+
+  for (i = 0; i < 100; i++) {
+    rs.emit("data", i);
+  }
+  ended = true;
+  rs.emit("end");
+});
